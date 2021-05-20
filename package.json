@@ -1,0 +1,11 @@
+{
+  "name": "find-hat",
+  "version": "1.0.0",
+  "description": "This is a terminal game using node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nobuharu Shimazu",
+  "license": "MIT"
+}
