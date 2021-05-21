@@ -4,6 +4,7 @@
 
 THE CHARACTORS
 | Symbol | Description |
+| ------ | --- | 
 |  @    | This shows where the player is. |
 | ░     | This is field. It's ok. You can walk on it. |
 |   O   | This is a hole. Nobody knows how deep it is. |
