@@ -17,7 +17,7 @@ const prompt = require('prompt-sync')({sigint: true});
 const GF = require("./generate_field.js");
 
 
-class FindHatGame{
+class threeHundredThousandAndTen{
     constructor(){
         const width = prompt("Enter the width(30): ");
         const height = prompt("Enter the height(10): ");
@@ -133,5 +133,5 @@ class FindHatGame{
 }
 
 
-const game = new FindHatGame();
+const game = new threeHundredThousandAndTen();
 game.play();
