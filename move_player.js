@@ -23,7 +23,7 @@ class MovePlayer{
         }
     }
     
-    _movePlayer(direc){  // this method actually moves the player
+    movePlayer(direc){  // this method actually moves the player
         let check = this._check(direc);   // call check method to check wether the player's next move is fine or bad
         if (!check[0]){
             return check;

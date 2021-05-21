@@ -15,7 +15,7 @@
 
 const prompt = require('prompt-sync')({sigint: true});
 const GF = require("./generate_field.js");
-const MV = require("./move_player.js");
+const MV = require("./move_player.js")
 
 
 class threeHundredThousandAndTen{
@@ -51,6 +51,56 @@ class threeHundredThousandAndTen{
         }
     }    
 
+    check(direc){  // this checks wether the player is going to die or not
+        if (this.whereIam[0]+direc[0] === -1 || this.whereIam[1]+direc[1] === -1){
+        return [false, "undefined"];
+
+        } else if (this.whereIam[0]+direc[0] === this.field.length || this.whereIam[1]+direc[1] === this.field[0].length){
+        return [false, "undefined"];
+        
+        } else if (this.field[this.whereIam[0]+direc[0]][this.whereIam[1]+direc[1]] === "O"){
+        return [false, "fallllllll......"];
+        
+        } else if (this.field[this.whereIam[0]+direc[0]][this.whereIam[1]+direc[1]] === "^"){
+        return ["game clear!", "Found the hat!!"];
+
+        } else {
+        return [true];
+        }
+    }
+    
+    _movePlayer(direc){  // this method actually moves the player
+        let check = this.check(direc);   // call check method to check wether the player's next move is fine or bad
+        if (!check[0]){
+            return check;
+        } else if (check[0]==="game clear!"){
+            return check;
+        } else if (direc[0] === 0){
+            if (direc[1] === 1){
+                this.field[this.whereIam[0]][this.whereIam[1]+1] = "@";
+                this.field[this.whereIam[0]][this.whereIam[1]] = "░"
+                this.whereIam = [this.whereIam[0],this.whereIam[1]+1];
+                return "ok";
+            } else if (direc[1] === 0) {  // return only "ok" because the player just wants to stay where they are
+                return "ok"
+            } else {
+                this.field[this.whereIam[0]][this.whereIam[1]-1] = "@";
+                this.field[this.whereIam[0]][this.whereIam[1]] = "░"
+                this.whereIam = [this.whereIam[0],this.whereIam[1]-1];
+                return "ok";
+            }
+        } else if (direc[0] === 1) {  // user wants to go down
+            this.field[this.whereIam[0]+1][this.whereIam[1]] = "@";
+            this.field[this.whereIam[0]][this.whereIam[1]] = "░"
+            this.whereIam = [this.whereIam[0]+1,this.whereIam[1]];
+            return "ok";
+        } else if (direc[0] === -1) { // user wants to go up
+            this.field[this.whereIam[0]-1][this.whereIam[1]] = "@";
+            this.field[this.whereIam[0]][this.whereIam[1]] = "░"
+            this.whereIam = [this.whereIam[0]-1,this.whereIam[1]];
+            return "ok";
+        }
+    }
 
     play(){
         prompt("This is the original find-hat game.\n");
@@ -67,7 +117,7 @@ class threeHundredThousandAndTen{
             }
 
             const newMV = new MV.MovePlayer(this);
-            const check_game_clear_or_not = newMV._movePlayer(false_or_direc);
+            const check_game_clear_or_not = newMV.movePlayer(false_or_direc);
             // update whereIam and field
             this.whereIam = newMV.whereIam;
             this.field = newMV.field;
