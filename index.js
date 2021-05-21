@@ -17,6 +17,7 @@ const prompt = require('prompt-sync')({sigint: true});
 const GF = require("./generate_field.js");
 const MV = require("./move_player.js");
 const MZ = require("./move_zombies.js");
+const colors = require("colors");
 
 
 class threeHundredThousandAndTen{
@@ -74,7 +75,6 @@ class threeHundredThousandAndTen{
             // update whereIam and field
             this.whereIam = newMV.whereIam;
             this.field = newMV.field;
-            this._print();
             
             
             // move zombies

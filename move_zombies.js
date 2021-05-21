@@ -57,8 +57,7 @@ class MoveZombies{
     }
 
     checkZombieEaten(new_po){
-        // console.log(this.field[new_po[0]][new_po[1]]);
-        if (this.field[new_po[0]][new_po[1]] === "@"){
+        if (this.field[new_po[0]][new_po[1]] === "@".bold){
           return true;
         } else {
           return false;

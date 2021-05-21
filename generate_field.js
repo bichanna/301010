@@ -37,7 +37,7 @@ function generateField(width, height, rate){
     const hatHeight = Math.floor(Math.random()*height);
     
     field[hatHeight][hatWidth] = "^"; // defining the location of the hat
-    field[0][0] = "@";
+    field[0][0] = "@".bold;
     return [field, zombies_positions];
 }
 
