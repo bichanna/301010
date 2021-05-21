@@ -25,7 +25,6 @@ class FindHatGame{
 
         this.field = GF.generateField(width, height, rate); // generate a field and assign it to this.field
         this.whereIam = [0,0];
-        console.log(this.field)
     }
 
     _print(){
