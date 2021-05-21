@@ -15,7 +15,8 @@
 
 const prompt = require('prompt-sync')({sigint: true});
 const GF = require("./generate_field.js");
-const MV = require("./move_player.js")
+const MV = require("./move_player.js");
+const MZ = require("./move_zombies.js");
 
 
 class threeHundredThousandAndTen{
@@ -67,16 +68,31 @@ class threeHundredThousandAndTen{
                 prompt("");
                 continue;
             }
-
+            // move player
             const newMV = new MV.MovePlayer(this);
-            const check_game_clear_or_not = newMV.movePlayer(false_or_direc);
+            let check_game_clear_or_not = newMV.movePlayer(false_or_direc);
             // update whereIam and field
             this.whereIam = newMV.whereIam;
             this.field = newMV.field;
+            this._print();
+            
+            
+            // move zombies
+            const newMZ = new MZ.MoveZombies(this);
+            const if_eaten_by_zombie = newMZ.moveZombies();
+            // update field zombies_positions and field
+            this.field = newMZ.field;
+            this.zombies_positions = newMZ.zombies_positions;
+
+            // check if player is eaten
+            if (!if_eaten_by_zombie[0]){
+                check_game_clear_or_not = [false, "eaten by a zombie"];
+            }
 
             if (check_game_clear_or_not[0] === false){
                 console.log("GAME OVER...");
                 console.log(`CAUSE OF DEATH: ${check_game_clear_or_not[1]}`);
+                console.log(`YOUR LAST COMMAND WAS ${direc}.`);
                 prompt("");
                 break;
             } else if (check_game_clear_or_not[0] === "game clear!"){

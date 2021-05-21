@@ -1,5 +1,4 @@
-function appendChar(field, random, i, n){
-    let zombies_positions = [];
+function appendChar(field, random, i, n, zombies_positions){
     if (random === 1){
         const zombies_or_hole = Math.floor(Math.random()*2);
         if (zombies_or_hole === 0){
@@ -28,9 +27,10 @@ function generateField(width, height, rate){
         field.push([]);
         for (let n=0; n<width; n++){
             let random = Math.floor(Math.random()*rate)+1;
-            const list = appendChar(field, random, i, n);
+            const list = appendChar(field, random, i, n, zombies_positions);
             field = list[0];
             zombies_positions = list[1];
+            
         }
     }
     const hatWidth = Math.floor(Math.random()*width);
