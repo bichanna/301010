@@ -1,15 +1,23 @@
-function appendChar(field, random, i){
+function appendChar(field, random, i, n){
+    let zombies_positions = [];
     if (random === 1){
-        field[i].push("O");
+        const zombies_or_hole = Math.floor(Math.random()*2);
+        if (zombies_or_hole === 0){
+            field[i].push("O");
+        } else if (zombies_or_hole === 1){
+            field[i].push("*");
+            zombies_positions.push([i,n]);   // add each zombie's position so that I can manage all zombies.
+        }
     } else {
       field[i].push("░");
     }
-    return field
+    return [field, zombies_positions];
 }
 
 
 function generateField(width, height, rate){
     let field = [];
+    let zombies_positions = [];
     if (!width || !height || !rate){
         width = 30;
         height = 10;
@@ -20,7 +28,9 @@ function generateField(width, height, rate){
         field.push([]);
         for (let n=0; n<width; n++){
             let random = Math.floor(Math.random()*rate)+1;
-            field = appendChar(field, random, i);
+            const list = appendChar(field, random, i, n);
+            field = list[0];
+            zombies_positions = list[1];
         }
     }
     const hatWidth = Math.floor(Math.random()*width);
@@ -28,7 +38,7 @@ function generateField(width, height, rate){
     
     field[hatHeight][hatWidth] = "^"; // defining the location of the hat
     field[0][0] = "@";
-    return field;
+    return [field, zombies_positions];
 }
 
 module.exports.generateField = generateField;

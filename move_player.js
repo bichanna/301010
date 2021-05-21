@@ -7,16 +7,19 @@ class MovePlayer{
 
     _check(direc){  // this checks wether the player is going to die or not
         if (this.whereIam[0]+direc[0] === -1 || this.whereIam[1]+direc[1] === -1){
-        return [false, "undefined"];
+            return [false, "undefined"];
 
         } else if (this.whereIam[0]+direc[0] === this.field.length || this.whereIam[1]+direc[1] === this.field[0].length){
-        return [false, "undefined"];
+            return [false, "undefined"];
         
         } else if (this.field[this.whereIam[0]+direc[0]][this.whereIam[1]+direc[1]] === "O"){
-        return [false, "fallllllll......"];
+            return [false, "fallllllll......"];
         
         } else if (this.field[this.whereIam[0]+direc[0]][this.whereIam[1]+direc[1]] === "^"){
-        return ["game clear!", "Found the hat!!"];
+            return ["game clear!", "Found the hat!!"];
+
+        } else if (this.field[this.whereIam[0]+direc[0]][this.whereIam[1]+direc[1]] === "*"){
+            return [false, "eaten by a zombie."];
 
         } else {
         return [true];
