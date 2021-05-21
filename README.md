@@ -9,6 +9,7 @@ THE CHARACTORS
 | ░     | This is field. It's ok. You can walk on it. |
 |   O   | This is a hole. Nobody knows how deep it is. |
 |   ^   | This is your goal. |
+|    * | This is a zombie. Unfortunately, it is clever enough to avoid holes.|
 
 
 COMMANDS
