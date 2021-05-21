@@ -10,21 +10,27 @@
   hole : 'O'
   fieldCharacter : '░'
   player : '@'
-  zombie : '*'
+  zombie : 'Z'
 */
 
 const prompt = require('prompt-sync')({sigint: true});
+const GF = require("./generate_field.js");
+
 
 class FindHatGame{
-    constructor(field){
-        this.field = field;
-        this.whereIam = [0,0];
+    constructor(){
+        const width = prompt("Enter the width(30): ");
+        const height = prompt("Enter the height(10): ");
+        const rate = prompt("Enter the rate(10): ");
 
+        this.field = GF.generateField(width, height, rate); // generate a field and assign it to this.field
+        this.whereIam = [0,0];
+        console.log(this.field)
     }
 
-    _print(field){
-        for (let i of field){
-            console.log(i.join(""));
+    _print(){
+        for (let i of this.field){
+          console.log(i.join(""));
         }
     }
 
@@ -100,37 +106,33 @@ class FindHatGame{
         prompt("This is the original find-hat game.\n");
 
         while (true){
-        this._print(this.field);
-        const direc = prompt("Which way? : ");
-        // check if the user entered a proper command
-        const false_or_direc = this._checkDirection(direc);
-        if (false_or_direc === false){
-            console.log("Please enter proper command.");
-            prompt("");
-            continue;
-        }
+            this._print();
+            const direc = prompt("command: ");
+            // check if the user entered a proper command
+            const false_or_direc = this._checkDirection(direc);
+            if (false_or_direc === false){
+                console.log("PLEASE ENTER PROPER COMMAND.");
+                prompt("");
+                continue;
+            }
 
-        const check_game_clear_or_not = this._movePlayer(false_or_direc);
+            const check_game_clear_or_not = this._movePlayer(false_or_direc);
 
-        if (check_game_clear_or_not[0] === false){
-            console.log("Game Over...");
-            console.log(`cause of death: ${check_game_clear_or_not[1]}`);
-            prompt("");
-            break;
-        } else if (check_game_clear_or_not[0] === "game clear!"){
-            console.log("Found the hat!!");
-            console.log("Game Clear!")
-            prompt("");
-            break;
-        }
+            if (check_game_clear_or_not[0] === false){
+                console.log("GAME OVER...");
+                console.log(`CAUSE OF DEATH: ${check_game_clear_or_not[1]}`);
+                prompt("");
+                break;
+            } else if (check_game_clear_or_not[0] === "game clear!"){
+                console.log("FOUND THE HAT!");
+                console.log("GAME CLEAR!")
+                prompt("");
+                break;
+            }
         }
     }
 }
 
-field = [
-    ["@","░","░"],
-    ["░","░","O"],
-    ["░","^","░"]
-];
-const game = new FindHatGame(field);
+
+const game = new FindHatGame();
 game.play();
